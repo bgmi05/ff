@@ -2,8 +2,6 @@
  * element in a collection that have a specific property such as even number,
  *  odd number, prime number and pallindromes.*/ 
 
-
-package assignment;
 import java.util.Objects;
 import java.util.Scanner;
 
