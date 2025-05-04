@@ -1,3 +1,4 @@
+//PROBLEM STATEMENT :
 /* Implement a factory design pattern for the given context . Consider Car building process ,
  *  which requires many steps from allocating accessories to final makeup. These steps should 
  *  be written as methods and should be called while creating an instance of specific  car type. 
@@ -135,5 +136,56 @@ class Luxary extends Car_Factory{
 		System.out.println("Automotive Garbage Cans- "+Ans);
 		System.out.println("Automotice Air Freshner- "+Ans);
 		System.out.println("Button Start- "+Ans);
+	}
+}
+
+//============================= MAIN CLASS =============================//
+public class Main {
+
+	//ststic main method
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);//creating object of scanner class
+		int ch;
+		//double price;
+		Car_Factory obj;// object of reference Car_Factory
+		while(true){
+			//menu driven
+			System.out.println("Which Car you want to See?- ");
+			System.out.println("\n\t1.Small Car\n\t2.Sedan Car\n\t3.Luxary Car\n\t4.Exit");
+			ch=scan.nextInt();//taking input from user
+			System.out.println();
+			//switch case
+			switch(ch) {
+	
+				case 1:
+					obj= new Small_car(); //creating object of Small_car
+					obj.input();//calling input method
+					obj.display(obj);//calling display method
+					break;
+					
+				case 2:
+					obj= new Sedan();//creating object of Sedan
+					obj.input();//calling input method
+					obj.display(obj);//calling display method
+					break;
+					
+				case 3:
+					obj= new Luxary();//creating object of Luxary
+					obj.input();//calling input method
+					obj.display(obj);//calling display method
+					break;
+					
+				case 4:
+					System.out.println("\n-----------------------------------");
+					return;//stop execution of program
+					
+				default:
+					System.out.println("INVALID CHOICE !!");//default 
+					System.out.println("\n-----------------------------------");
+					break;
+				
+			}
+		}
 	}
 }
