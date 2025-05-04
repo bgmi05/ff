@@ -5,7 +5,7 @@
  *   , CarFactory and Test Factory Pattern should be implemented */
 
 
-package assignment;
+
 import java.util.Scanner;
 // ============================= ABSTRACT CLASS Car_Factory =============================//
 abstract class Car_Factory{	
