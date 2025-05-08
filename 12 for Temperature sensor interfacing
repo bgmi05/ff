@@ -1,0 +1,95 @@
+#include<xc.h>
+#include<stdio.h>
+#define RS PORTCbits.RC0
+#define EN PORTCbits.RC1
+
+void delay()
+{
+int i;
+for(i=0;i<5000;i++);
+}
+void sendCmd(char cmd)
+{
+PORTB=cmd;
+delay();
+RS=0;
+delay();
+EN=1;
+delay();
+EN=0;
+delay();
+}
+
+void sendData(char lcddata)
+{
+PORTB=lcddata;
+delay();
+RS=1;
+delay();
+EN=1;
+delay();
+EN=0;
+delay();
+}
+
+void LCD_String(char *temp)
+{
+while(*temp)
+{
+sendData(*temp++);
+}
+}
+
+void InitLCD(void)
+{
+sendCmd(0x38);
+sendCmd(0x01);
+sendCmd(0x0E);
+sendCmd(0x06);
+}
+
+void ADCInit()
+{
+TRISEbits.RE2=1;
+ADCON0=0x1D;
+ADCON1=0x07;
+ADCON2=0xAE;
+}
+
+short Read_ADC()
+{
+GODONE=1;
+delay();
+return ADRES;
+}
+
+void DisplayResult(short ADCVal)
+{
+char text[16];
+short tempv;
+tempv=ADCVal;
+ADCVal=(5500/1024)*tempv;
+ADCVal=(ADCVal/10);
+sprintf(text,"%d deg C",ADCVal);
+sendCmd(0xC0);
+LCD_String(text);
+}
+
+void main()
+{
+short Ch_result;
+TRISB=0;
+TRISCbits.RC0=0;
+TRISCbits.RC1=0;
+ADCInit();
+InitLCD();
+sendCmd(0x80);
+LCD_String("Temperature=");
+while(1)
+{
+Ch_result=Read_ADC();
+DisplayResult(Ch_result);
+delay();
+delay();
+}
+}
