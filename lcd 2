@@ -1,0 +1,17 @@
+#include <xc.h>
+#pragma config OSC=HS, WDT=OFF, LVP=OFF
+#define _XTAL_FREQ 20000000
+
+#define RS RD0
+#define EN RD2
+#define LCD PORTB
+
+void cmd(char c) { RS=0; LCD=c; EN=1; __delay_ms(2); EN=0; }
+void data(char d) { RS=1; LCD=d; EN=1; __delay_ms(2); EN=0; }
+
+void main() {
+    TRISB=0; TRISD=0;
+    cmd(0x38); cmd(0x0C); cmd(0x01); cmd(0x80);
+    data('H'); data('i');
+    while(1);
+}
