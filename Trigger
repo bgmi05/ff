@@ -1,0 +1,37 @@
+CREATE TABLE Student_Log (
+    Log_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Action_Type VARCHAR(20),
+    Student_ID INT,
+    Action_Date DATETIME
+);
+
+
+CREATE TABLE Student_Log (
+    Log_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Action_Type VARCHAR(20),
+    Student_ID INT,
+    Action_Date DATETIME
+);
+
+
+CREATE TRIGGER trg_student_insert_row
+AFTER INSERT
+ON Student
+FOR EACH ROW
+INSERT INTO Student_Log (Action_Type, Student_ID, Action_Date)
+VALUES ('ROW INSERT', NEW.Student_ID, NOW());
+
+
+
+INSERT INTO Student (Student_ID, Student_Name, Marks, Grade)
+VALUES 
+(1, 'Yash More', 85, 'A'),
+(2, 'Priya Patil', 78, 'B');
+
+
+
+
+
+
+
+SELECT * FROM Student_Log;
